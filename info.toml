@@ -1,0 +1,7 @@
+display_name="Ascension: A Link Micromoveset"
+description="""
+This micromoveset gives Link a new up special, where he can ascend through solid ground. It also gives him the ability to climb on vertical walls!
+"""
+version="1.0"
+category="Param"
+authors="C#"

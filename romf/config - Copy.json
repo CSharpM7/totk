@@ -1,0 +1,136 @@
+{
+    "share-to-added": {
+        "fighter/link/motion/body/c00/d02specialairhi.nuanmb": [
+            "fighter/link/motion/body/c01/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c02/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c03/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c04/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c05/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c06/d02specialairhi.nuanmb",
+            "fighter/link/motion/body/c07/d02specialairhi.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/d02specialhi.nuanmb": [
+            "fighter/link/motion/body/c01/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c02/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c03/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c04/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c05/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c06/d02specialhi.nuanmb",
+            "fighter/link/motion/body/c07/d02specialhi.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/d02specialhiend.nuanmb": [
+            "fighter/link/motion/body/c01/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c02/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c03/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c04/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c05/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c06/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c07/d02specialhiend.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/d02specialhihold.nuanmb": [
+            "fighter/link/motion/body/c01/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c02/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c03/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c04/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c05/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c06/d02specialhihold.nuanmb",
+            "fighter/link/motion/body/c07/d02specialhihold.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/d02specialhistart.nuanmb": [
+            "fighter/link/motion/body/c01/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c02/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c03/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c04/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c05/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c06/d02specialhistart.nuanmb",
+            "fighter/link/motion/body/c07/d02specialhistart.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/f05passivewall.nuanmb": [
+            "fighter/link/motion/body/c01/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c02/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c03/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c04/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c05/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c06/f05passivewall.nuanmb",
+            "fighter/link/motion/body/c07/f05passivewall.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/f05passivewallattach.nuanmb": [
+            "fighter/link/motion/body/c01/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c02/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c03/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c04/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c05/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c06/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c07/f05passivewallattach.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/f05passivewallattachclimb.nuanmb": [
+            "fighter/link/motion/body/c01/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c02/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c03/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c04/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c05/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c06/f05passivewallattachclimb.nuanmb",
+            "fighter/link/motion/body/c07/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/motion/body/c00/motion_list.bin": [
+            "fighter/link/motion/body/c01/motion_list.bin",
+            "fighter/link/motion/body/c02/motion_list.bin",
+            "fighter/link/motion/body/c03/motion_list.bin",
+            "fighter/link/motion/body/c04/motion_list.bin",
+            "fighter/link/motion/body/c05/motion_list.bin",
+            "fighter/link/motion/body/c06/motion_list.bin",
+            "fighter/link/motion/body/c07/motion_list.bin"
+        ],
+		"sound/bank/fighter/se_link_c00.nus3audio": [
+            "sound/bank/fighter/se_link_c01.nus3audio",
+            "sound/bank/fighter/se_link_c02.nus3audio",
+            "sound/bank/fighter/se_link_c03.nus3audio",
+            "sound/bank/fighter/se_link_c04.nus3audio",
+            "sound/bank/fighter/se_link_c05.nus3audio",
+            "sound/bank/fighter/se_link_c06.nus3audio",
+            "sound/bank/fighter/se_link_c07.nus3audio"
+        ]
+    },
+    "new-dir-files": {
+        "fighter/link/c00": [
+            "fighter/link/motion/body/c00/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c00/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c00/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c01": [
+            "fighter/link/motion/body/c01/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c01/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c01/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c02": [
+            "fighter/link/motion/body/c02/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c02/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c02/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c03": [
+            "fighter/link/motion/body/c03/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c03/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c03/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c04": [
+            "fighter/link/motion/body/c04/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c04/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c04/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c05": [
+            "fighter/link/motion/body/c05/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c05/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c05/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c06": [
+            "fighter/link/motion/body/c06/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c06/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c06/f05passivewallattachclimb.nuanmb"
+        ],
+        "fighter/link/c07": [
+            "fighter/link/motion/body/c07/d02specialhiend.nuanmb",
+            "fighter/link/motion/body/c07/f05passivewallattach.nuanmb",
+            "fighter/link/motion/body/c07/f05passivewallattachclimb.nuanmb"
+        ]
+    }
+}
