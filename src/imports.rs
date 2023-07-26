@@ -28,7 +28,7 @@ pub mod imports_acmd {
                 self
             },
             ext::*,
-            getvar::*
+            VarModule::*
         },
         smashline::*,
         crate::vars::*,
@@ -64,7 +64,7 @@ pub mod imports_agent {
                 self
             },
             ext::*,
-            getvar::*
+            VarModule::*
         },
         smashline::*,
         crate::vars::*,

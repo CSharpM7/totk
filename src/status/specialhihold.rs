@@ -120,8 +120,8 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
         let pos_y = PostureModule::pos_y(fighter.module_accessor);       
         let height = WorkModule::get_param_float(fighter.module_accessor, hash40("height"), 0);
 
-        let target_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y);
-        let start_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_START_Y);
+        let target_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y);
+        let start_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_START_Y);
         let mut max_y = target_y +height+ 20.0;
         let lr = PostureModule::lr(fighter.module_accessor);   
         let ground_hit_pos = &mut Vector2f{x: 0.0, y: 0.0};
@@ -152,7 +152,7 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
             {
                 if GroundModule::ray_check_hit_pos(fighter.module_accessor, &Vector2f{ x: pos_x, y: target_y+20.0}, &Vector2f{ x: 0.0, y: -40.0}, ground_hit_pos,true) == 1 {
                     println!("Ground is moving...");
-                    VarModule::set_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y,ground_hit_pos.y);
+                    VarModule::set_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y,ground_hit_pos.y);
                     max_y = ground_hit_pos.y;
                 }
                 else {

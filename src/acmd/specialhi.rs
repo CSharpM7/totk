@@ -4,14 +4,14 @@ use crate::imports::imports_acmd::*;
 unsafe fn game_specialhi(fighter: &mut L2CAgentBase) {
     frame(fighter.lua_state_agent, 8.0);
     if macros::is_excute(fighter) {
-        if VarModule::is_flag(fighter.battle_object, link::instance::flag::ASCEND_AIR_HOP)
+        if VarModule::is_flag(fighter.battle_object, &mut link::instance::flag::ASCEND_AIR_HOP)
         && StatusModule::situation_kind(fighter.module_accessor) == *SITUATION_KIND_AIR
         {
             let lr = PostureModule::lr(fighter.module_accessor);   
             let speedx = KineticModule::get_sum_speed_x(fighter.module_accessor, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN)*lr;
             SET_SPEED_EX(fighter,speedx,1.5,*KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
         }
-        VarModule::off_flag(fighter.battle_object, link::instance::flag::ASCEND_AIR_HOP);
+        VarModule::off_flag(fighter.battle_object, &mut link::instance::flag::ASCEND_AIR_HOP);
         
     }
     frame(fighter.lua_state_agent, 12.0);
