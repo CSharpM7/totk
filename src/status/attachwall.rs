@@ -1,8 +1,6 @@
 use crate::imports::imports_agent::*;
 
-#[status_script(agent = "link", status = FIGHTER_STATUS_KIND_ATTACH_WALL, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn attachwall_main(fighter: &mut L2CFighterCommon) -> L2CValue {
-
+unsafe extern "C" fn attachwall_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     let mut start_stamina = WorkModule::get_param_int(fighter.module_accessor, hash40("common"), hash40("attach_wall_frame"));
     let cliff_count = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_CLIFF_COUNT);
     start_stamina -= (cliff_count*20);
@@ -27,14 +25,12 @@ unsafe fn attachwall_main(fighter: &mut L2CFighterCommon) -> L2CValue {
 }
 
 unsafe extern "C" fn attachwall_substatus(fighter: &mut L2CFighterCommon) -> L2CValue {
-
     if ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_JUMP) {
         WorkModule::sub_int(fighter.module_accessor, 30, *FIGHTER_STATUS_ATTACH_WALL_WORK_INT_FRAME);
         PostureModule::reverse_lr(fighter.module_accessor);
         PostureModule::update_rot_y_lr(fighter.module_accessor);
         fighter.change_status(FIGHTER_STATUS_KIND_JUMP_AERIAL.into(), false.into());
     }
-
     let wall_jump_stick_x = WorkModule::get_param_float(fighter.module_accessor, hash40("common"), hash40("wall_jump_stick_x"));
     let stick_x = ControlModule::get_stick_x(fighter.module_accessor);
     let lr = PostureModule::lr(fighter.module_accessor);
@@ -43,7 +39,6 @@ unsafe extern "C" fn attachwall_substatus(fighter: &mut L2CFighterCommon) -> L2C
         fighter.change_status(FIGHTER_STATUS_KIND_FALL.into(), false.into());
         return 0.into()
     }
-
     let stick_y = ControlModule::get_stick_y(fighter.module_accessor);
     if stick_y.abs() <= 0.25 {
         if MotionModule::motion_kind(fighter.module_accessor) != smash::hash40("attach_wall") {
@@ -90,9 +85,7 @@ unsafe extern "C" fn attachwall_main_loop(fighter: &mut L2CFighterCommon) -> L2C
     let lr = PostureModule::lr(fighter.module_accessor);
     let attach_side = if 0.0 <= lr {*GROUND_TOUCH_FLAG_LEFT} else { *GROUND_TOUCH_FLAG_RIGHT };
     let remove_attach = !GroundModule::is_attachable(fighter.module_accessor, GroundTouchFlag(attach_side));
-    if GroundModule::can_entry_cliff(fighter.module_accessor) != 0 
-    || fighter.sub_transition_group_check_air_cliff().get_bool()
-    || remove_attach {
+    if GroundModule::can_entry_cliff(fighter.module_accessor) != 0 || fighter.sub_transition_group_check_air_cliff().get_bool() || remove_attach {
         let max_cliff = WorkModule::get_param_int(fighter.module_accessor, hash40("common"), hash40("cliff_max_count"));
         if WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_CLIFF_COUNT) < max_cliff {
             WorkModule::on_flag(fighter.module_accessor, *FIGHTER_STATUS_WORK_ID_FLAG_RESERVE_CLIFF_CATCH_MOVE);
@@ -103,10 +96,8 @@ unsafe extern "C" fn attachwall_main_loop(fighter: &mut L2CFighterCommon) -> L2C
             WorkModule::set_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_NO_ATTACH_WALL_FRAME,0);
         }
     }
-
     let stamina = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_NO_ATTACH_WALL_FRAME)-1;
     WorkModule::sub_int(fighter.module_accessor, 1, *FIGHTER_STATUS_ATTACH_WALL_WORK_INT_FRAME);
-
     if stamina <= 0 {
         PostureModule::reverse_lr(fighter.module_accessor);
         PostureModule::update_rot_y_lr(fighter.module_accessor);
@@ -125,12 +116,11 @@ unsafe extern "C" fn attachwall_main_loop(fighter: &mut L2CFighterCommon) -> L2C
 			EFFECT_FOLLOW(fighter, Hash40::new("sys_hit_sweat"), Hash40::new("top"), 0, 14.5, 3.0, 0, 0, 0, sweatSize, true);
 		}
     }
-    
     0.into()
 }
 
 pub fn install() {
-    install_status_scripts!(
-        attachwall_main
-    );
+    Agent::new("link")
+        .status(Main, *FIGHTER_STATUS_KIND_ATTACH_WALL, attachwall_main)
+        .install();
 }

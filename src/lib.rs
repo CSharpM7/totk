@@ -4,38 +4,45 @@
 )]
 #![allow(
     non_snake_case,
-    unused
+    unused,
+    static_mut_refs
 )]
 #![deny(
     deprecated
 )]
-
 #[macro_use]
 extern crate lazy_static;
 
-pub mod imports;
+mod imports;
+pub mod vars;
 
 mod acmd;
-mod frame;
 mod status;
 mod agent;
-pub mod data;
-//mod custom_vars;
-pub mod vars;
-use data::gamemode::*;
-//pub mod util;
-//use util::*;
+
+#[no_mangle]
+pub fn smashline_install() {
+    //println!("[smashline_totk::main] Reloading...");
+    install();
+}
+
+pub fn install() {    
+    acmd::install();
+    status::install();
+    agent::install();
+}
 
 #[skyline::main(name = "smashline_totk")]
 pub fn main() {
-    println!("[smashline_totk::main] Loading...");
-    //custom_vars::install();
+    #[cfg(feature = "dev")]{
+        smashline_install();
+        return;
+    }
+    #[cfg(feature = "devhook")]{
+        return;
+    }
 
-    //data::install();
-    data::gamemode::set_gamemode();
-    acmd::install();
-    //frame::install();
-    status::install();
-    agent::install();
+    println!("[smashline_totk::main] Loading...");
+    install();
     println!("[smashline_totk::main] Loaded!");
 }

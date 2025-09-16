@@ -1,7 +1,6 @@
 use crate::imports::imports_agent::*;
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
-unsafe fn specialhiend_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
+unsafe extern "C" fn specialhiend_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
     StatusModule::init_settings(
         fighter.module_accessor,
         SituationKind(*SITUATION_KIND_AIR),
@@ -36,13 +35,12 @@ unsafe fn specialhiend_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, condition = LUA_SCRIPT_STATUS_FUNC_EXEC_STATUS)]
-unsafe fn specialhiend_exec(_fighter: &mut L2CFighterCommon) -> L2CValue {
+unsafe extern "C" fn specialhiend_exec(_fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn specialhiend_main(fighter: &mut L2CFighterCommon) -> L2CValue {
-    println!("Finishing up special");
+
+unsafe extern "C" fn specialhiend_main(fighter: &mut L2CFighterCommon) -> L2CValue {
+    //println!("Finishing up special");
     let mut motion = Hash40::new("special_hi_end");
     PostureModule::add_pos(fighter.module_accessor, &Vector3f{ x: 0.0, y: 0.0, z:0.0});
     MotionModule::change_motion(
@@ -75,24 +73,22 @@ unsafe extern "C" fn specialhiend_substatus(fighter: &mut L2CFighterCommon) -> L
 }
 
 unsafe extern "C" fn specialhiend_main_loop(fighter: &mut L2CFighterCommon) -> L2CValue {
-
     if MotionModule::is_end(fighter.module_accessor){
         fighter.change_status_by_situation(FIGHTER_STATUS_KIND_LANDING_FALL_SPECIAL.into(), FIGHTER_STATUS_KIND_FALL_AERIAL.into(),false.into());
     }
     0.into()
 }
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_END)]
-unsafe fn specialhiend_end(fighter: &mut L2CFighterCommon) -> L2CValue {
+unsafe extern "C" fn specialhiend_end(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
 
 
 pub fn install() {
-    install_status_scripts!(
-        specialhiend_pre, 
-        specialhiend_exec, 
-        specialhiend_end, 
-        specialhiend_main
-    );
+    Agent::new("link")
+        .status(Pre, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, specialhiend_pre)
+        .status(Exec, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, specialhiend_exec)
+        .status(Main, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, specialhiend_main)
+        .status(End, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END, specialhiend_end)
+        .install();
 }

@@ -1,73 +1,58 @@
 pub mod imports_acmd {
     pub use {
+        crate::vars::*,
+        
+        sharpsmashlinesuite::{
+            ext::*,
+            util::{self, *},
+            *,
+        },
+
         smash::{
-            lib::{
-                lua_const::*
-            },
             app::{
-                *,
                 self,
-                sv_animcmd::{
-                    frame,
-                    wait
-                },
-                lua_bind::*
+                lua_bind::*,
+                sv_animcmd::{frame, wait},
+                *,
             },
             hash40,
+            lib::lua_const::*,
             lua2cpp::*,
-            phx::*
+            phx::*,
         },
-        smash_script::{
-            *,
-            macros::*
-        },
-        sharpsmashlinesuite::{
-            *,
-            util::{
-                *,
-                self
-            },
-            ext::*,
-            getvar::*
-        },
+        smash_script::{macros::*, *},
         smashline::*,
-        crate::vars::*,
-        crate::data::gamemode::*,
     };
+    pub unsafe extern "C" fn empty_acmd(agent: &mut L2CAgentBase) {}
 }
 
 pub mod imports_agent {
     pub use {
-        smash::{
-            lib::{
-                L2CValue,
-                L2CAgent,
-                lua_const::*
-            },
-            app::{
-                *,
-                self,
-                lua_bind::*
-            },
-            hash40,
-            lua2cpp::*,
-            phx::*
-        },
-        smash_script::{
-            *,
-            macros::*
-        },
-        sharpsmashlinesuite::{
-            *,
-            util::{
-                *,
-                self
-            },
-            ext::*,
-            getvar::*
-        },
-        smashline::*,
         crate::vars::*,
-        crate::data::gamemode::*,
+
+        sharpsmashlinesuite::{
+            ext::*,
+            util::{self, *},
+            *,
+        },
+
+        smash::{
+            app::{self, lua_bind::*, *},
+            hash40,
+            lib::{lua_const::*, L2CAgent, L2CValue},
+            lua2cpp::*,
+            phx::*,
+        },
+        smash_script::{macros::*, *},
+        smashline::{Main, *},
+    };
+    pub unsafe extern "C" fn empty_status(agent: &mut L2CAgentBase) -> L2CValue {
+        0.into()
+    }
+}
+pub mod imports_status {
+    pub use {
+        crate::imports::imports_agent::*,
+        smashline::{End, Exec, Init, Main, Pre, *},
     };
 }

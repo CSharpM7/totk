@@ -1,4 +1,7 @@
-$pluginLIB = "target/aarch64-skyline-switch/release/libsmashline_totk.nro"
+$cargoContents = Get-Content -Path cargo.toml
+$pluginName = $cargoContents[1].replace('name = ','').replace('"','')
+
+$pluginLIB = "target/aarch64-skyline-switch/release/lib"+$pluginName+".nro"
 $pluginNRO = "target/aarch64-skyline-switch/release/plugin.nro"
 if (Test-Path $pluginNRO) {
     Remove-Item $pluginNRO

@@ -1,7 +1,6 @@
 use crate::imports::imports_agent::*;
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
-unsafe fn specialhihold_pre(fighter: &mut L2CFighterCommon) -> L2CValue {    
+unsafe extern "C" fn specialhihold_pre(fighter: &mut L2CFighterCommon) -> L2CValue {    
     StatusModule::init_settings(
         fighter.module_accessor,
         SituationKind(*SITUATION_KIND_GROUND),
@@ -41,12 +40,11 @@ unsafe fn specialhihold_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, condition = LUA_SCRIPT_STATUS_FUNC_EXEC_STATUS)]
-unsafe fn specialhihold_exec(fighter: &mut L2CFighterCommon) -> L2CValue {
+unsafe extern "C" fn specialhihold_exec(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, condition = LUA_SCRIPT_STATUS_FUNC_EXIT_STATUS)]
-unsafe fn specialhihold_exit(fighter: &mut L2CFighterCommon) -> L2CValue {
+
+unsafe extern "C" fn specialhihold_exit(fighter: &mut L2CFighterCommon) -> L2CValue {
     ColorBlendModule::cancel_main_color(fighter.module_accessor, 0);
     GroundModule::set_rhombus_offset(fighter.module_accessor,&Vector2f{ x: 0.0, y: 0.0});
     COL_NORMAL(fighter);
@@ -57,8 +55,7 @@ unsafe fn specialhihold_exit(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
 
-#[status_script(agent = "link", status = FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn specialhihold_main(fighter: &mut L2CFighterCommon) -> L2CValue {
+unsafe extern "C" fn specialhihold_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     MotionModule::change_motion(
         fighter.module_accessor,
         Hash40::new("special_hi_start"),
@@ -76,7 +73,7 @@ unsafe fn specialhihold_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     if !StopModule::is_stop(fighter.module_accessor) {
         specialhihold_substatus(fighter);
     }
-    println!("Swimming Up");
+    //println!("Swimming Up");
     fighter.global_table[SUB_STATUS].assign(&L2CValue::Ptr(specialhihold_substatus as *const () as _));
     fighter.sub_shift_status_main(L2CValue::Ptr(specialhihold_main_loop as *const () as _))
 }
@@ -110,7 +107,6 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
             false
         );
     }
-
     let current_frame = WorkModule::get_float(fighter.module_accessor, *FIGHTER_LINK_STATUS_RSLASH_WORK_HOLD_FRAME);
     let start_frame = 8.0;
     let max_frame = 10.0;
@@ -119,25 +115,21 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
         let pos_x = PostureModule::pos_x(fighter.module_accessor);
         let pos_y = PostureModule::pos_y(fighter.module_accessor);       
         let height = WorkModule::get_param_float(fighter.module_accessor, hash40("height"), 0);
-
-        let target_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y);
-        let start_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_START_Y);
+        let target_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y);
+        let start_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_START_Y);
         let mut max_y = target_y +height+ 20.0;
         let lr = PostureModule::lr(fighter.module_accessor);   
         let ground_hit_pos = &mut Vector2f{x: 0.0, y: 0.0};
-
         //for x in (1..110).step_by(2)
         if MotionModule::motion_kind(fighter.module_accessor) == smash::hash40("special_hi_hold")
         { 
-            println!("Swimming to {target_y} from {pos_y}");
-
+            //println!("Swimming to {target_y} from {pos_y}");
             SET_SPEED_EX(fighter,0.0,3.0,*KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
-
-            if GroundModule::ray_check_hit_pos(fighter.module_accessor, &Vector2f{ x: pos_x, y: pos_y+4.0}, &Vector2f{ x: 0.0, y: -height/1.5}, ground_hit_pos,true) == 1
+            if GroundModule::ray_check_hit_pos(fighter.module_accessor, &Vector2f{ x: pos_x, y: pos_y+4.0}, &Vector2f{ x: 0.0, y: -height/1.5}, ground_hit_pos, true)
             //&& pos_y >= start_y+height/1.25
             && pos_y >= max_y-(height*2.0)
             {
-                println!("Confirmed ground...");
+                //println!("Confirmed ground...");
                 PostureModule::set_pos(fighter.module_accessor, &Vector3f{ x: pos_x, y: ground_hit_pos.y, z:0.0});
                 GroundModule::set_attach_ground(fighter.module_accessor, true);
                 fighter.change_status(FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_END.into(),true.into());
@@ -148,22 +140,21 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
 		let modulo = current_frame % 10.0;
 		if (modulo<1.0)
 		{
-            if GroundModule::ray_check(fighter.module_accessor, &Vector2f{ x: pos_x, y: target_y+5.0}, &Vector2f{ x: 0.0, y: -10.0},true) != 1
+            if GroundModule::ray_check(fighter.module_accessor, &Vector2f{ x: pos_x, y: target_y+5.0}, &Vector2f{ x: 0.0, y: -10.0}, true) != 1
             {
-                if GroundModule::ray_check_hit_pos(fighter.module_accessor, &Vector2f{ x: pos_x, y: target_y+20.0}, &Vector2f{ x: 0.0, y: -40.0}, ground_hit_pos,true) == 1 {
-                    println!("Ground is moving...");
-                    VarModule::set_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y,ground_hit_pos.y);
+                if GroundModule::ray_check_hit_pos(fighter.module_accessor, &Vector2f{ x: pos_x, y: target_y+20.0}, &Vector2f{ x: 0.0, y: -40.0}, ground_hit_pos,true) {
+                    //println!("Ground is moving...");
+                    VarModule::set_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y,ground_hit_pos.y);
                     max_y = ground_hit_pos.y;
                 }
                 else {
-                    println!("Ground moved away?");
+                    //println!("Ground moved away?");
                     max_y = -999.0;
                 }
             }
         }
-
         if pos_y > max_y {
-            println!("Ground is gone?!?");
+            //println!("Ground is gone?!?");
             ControlModule::set_rumble(fighter.module_accessor, Hash40::new("rbkind_damage_paralyze"), 0, false, *BATTLE_OBJECT_ID_INVALID as u32);
             PLAY_SE(fighter,Hash40::new("vc_link_damage01"));
             SET_SPEED_EX(fighter,0.0,2.5,*KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
@@ -174,10 +165,10 @@ unsafe extern "C" fn specialhihold_main_loop(fighter: &mut L2CFighterCommon) -> 
 }
 
 pub fn install() {
-    install_status_scripts!(
-        specialhihold_pre, 
-        specialhihold_exec, 
-        specialhihold_exit,
-        specialhihold_main
-    );
+    Agent::new("link")
+        .status(Pre, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, specialhihold_pre)
+        .status(Exec, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, specialhihold_exec)
+        .status(Main, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, specialhihold_main)
+        .status(Exit, *FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD, specialhihold_exit)
+        .install();
 }
