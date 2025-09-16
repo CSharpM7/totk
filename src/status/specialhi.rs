@@ -121,8 +121,8 @@ unsafe extern "C" fn specialhi_main_loop(fighter: &mut L2CFighterCommon) -> L2CV
         if pos_y < ground && ground < pos_y+100.0
         {
             println!("New ground y: {}!",ground);
-            VarModule::set_float(fighter.battle_object, &mut link::instance::float::ASCEND_START_Y, pos_y);
-            VarModule::set_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y, ground+5.0);
+            VarModule::set_float(fighter.battle_object, link::instance::float::ASCEND_START_Y, pos_y);
+            VarModule::set_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y, ground+5.0);
 
             fighter.change_status(FIGHTER_LINK_STATUS_KIND_SPECIAL_HI_HOLD.into(),true.into());
             return 0.into();

@@ -12,7 +12,7 @@ unsafe fn game_specialhistart(fighter: &mut L2CAgentBase) {
 #[acmd_script( agent = "link", scripts = ["effect_specialhistart"], category = ACMD_EFFECT)]
 unsafe fn effect_specialhistart(fighter: &mut L2CAgentBase) {
     if macros::is_excute(fighter) {        
-        let target_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y);
+        let target_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y);
         let pos_y = PostureModule::pos_y(fighter.module_accessor);
         EFFECT(fighter, Hash40::new("sys_flash"), Hash40::new("top"), 0, target_y-pos_y+5.0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, 0, false);
         LAST_EFFECT_SET_COLOR(fighter,0.25,1.0,0.5);
@@ -61,7 +61,7 @@ unsafe fn game_specialhihold(fighter: &mut L2CAgentBase) {
 #[acmd_script( agent = "link", scripts = ["effect_specialhihold"], category = ACMD_EFFECT)]
 unsafe fn effect_specialhihold(fighter: &mut L2CAgentBase) {
     if macros::is_excute(fighter) {        
-        let target_y = VarModule::get_float(fighter.battle_object, &mut link::instance::float::ASCEND_TARGET_Y);
+        let target_y = VarModule::get_float(fighter.battle_object, link::instance::float::ASCEND_TARGET_Y);
         let pos_y = PostureModule::pos_y(fighter.module_accessor);
         EFFECT(fighter, Hash40::new("sys_flash"), Hash40::new("top"), 0, target_y-pos_y+5.0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, 0, false);
         LAST_EFFECT_SET_COLOR(fighter,0.25,1.0,0.5);
